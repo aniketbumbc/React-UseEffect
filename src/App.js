@@ -1,25 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react';
-import ReactDOM from 'react-dom';
-import './App.css';
+import React, { useState } from 'react';
+import Reddit from './components/Reddit';
 // import LifeCycleDemo from './components/LifeCycleDemo';
 
 function App() {
-  const inputRef = useRef();
-  const [value, setValue] = useState('');
-
-  useEffect(() => {
-    inputRef.current.focus();
-    console.log('render...');
-  }, [inputRef, value]);
-
+  const [inputValue, setValue] = useState('reactjs');
+  const [subreddit, setSubreddit] = useState(inputValue);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubreddit(inputValue);
+  };
   return (
     <div>
       <h2> Hello </h2>
-      <input
-        ref={inputRef}
-        value={value}
-        onChange={(event) => setValue(event.target.value)}
-      />
+      <form onSubmit={handleSubmit}>
+        <input value={inputValue} onChange={(e) => setValue(e.target.value)} />
+      </form>
+      <Reddit subreddit={subreddit} />
     </div>
   );
 }
