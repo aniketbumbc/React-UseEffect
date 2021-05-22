@@ -1,24 +1,36 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+// import LifeCycleDemo from './components/LifeCycleDemo';
+
+const LifeCycleDemo = () => {
+  useEffect(() => {
+    console.log('render');
+
+    return () => console.log('unMount....');
+  }, []);
+
+  return (
+    <div>
+      <h4> Life Cycle Demo</h4>
+    </div>
+  );
+};
 
 function App() {
+  const [random, setRandom] = useState(Math.random());
+  const [mounted, setMounted] = useState(true);
+  const reRender = () => setRandom(Math.random());
+  const toggle = () => setMounted(!mounted);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <label className='app'>
+        {random}
+        {mounted}{' '}
+      </label>
+      <button onClick={reRender}>Re-render</button>
+      <button onClick={toggle}>Show/Hide LifecycleDemo</button>
+      {mounted && <LifeCycleDemo />}
+    </>
   );
 }
 
