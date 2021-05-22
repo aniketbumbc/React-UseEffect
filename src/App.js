@@ -1,22 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
 import './App.css';
-import LifeCycleDemo from './components/LifeCycleDemo';
+// import LifeCycleDemo from './components/LifeCycleDemo';
 
 function App() {
-  useEffect(() => {
-    console.log('parent state change ', count1);
-  });
+  const inputRef = useRef();
+  const [value, setValue] = useState('');
 
-  const [count1, setCount1] = useState(0);
-  const [count2, setCount2] = useState(0);
+  useEffect(() => {
+    inputRef.current.focus();
+    console.log('render...');
+  }, [inputRef, value]);
+
   return (
-    <>
-      <div>
-        <LifeCycleDemo a={count1} b={count2} />
-        <button onClick={() => setCount1(count1 + 1)}>Increment count1</button>
-        <button onClick={() => setCount2(count2 + 1)}>Increment count2</button>
-      </div>
-    </>
+    <div>
+      <h2> Hello </h2>
+      <input
+        ref={inputRef}
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+      />
+    </div>
   );
 }
 
